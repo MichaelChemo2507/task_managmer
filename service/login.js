@@ -18,7 +18,7 @@ class LoginService {
         validation.res_validate();
 
         const accessToken = JWT.sign({
-            ID: result[0].ID
+            ID: result[0].id
         }, process.env.ACCESS_SECRET_TOKEN, { expiresIn: oneDay })
         return accessToken;
     }
