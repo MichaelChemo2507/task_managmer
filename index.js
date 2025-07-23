@@ -14,6 +14,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use('/',require('./routes/router'));
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 
