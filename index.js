@@ -1,5 +1,5 @@
-// npm i express body-parser mysql2 ejs dotenv cookie-parser
-const port = 7777;
+// npm i express body-parser mysql2 ejs dotenv cookie-parser md5
+const port = 7777; 
 const dotenv = require('dotenv');
 const express = require('express');
 var cookieParser = require('cookie-parser');
