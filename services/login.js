@@ -6,7 +6,7 @@ class LoginService {
     static async authorizationProcess(values) {
         const oneDay = 24 * 60 * 60;
         if (!values || typeof values !== 'object')
-            throw new TypeError('Unvalid varables type sent from the controller!', UNAUTHORIZED);
+            throw new TypeError('Unvalid varables type sent from the controller!', STATUS_CODES.);
 
         const { userName, password } = values;
         let validation = new LoginValidation({ userName, password });
