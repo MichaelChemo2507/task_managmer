@@ -1,3 +1,4 @@
+const LoginService = require('../services/login');
 
 class LoginController {
     static async authorizationProcess(req, res) {
@@ -10,7 +11,7 @@ class LoginController {
             httpOnly: true,
             maxAge: oneDay,
         });
-        return res.status(process.env.OK).redirect("http://localhost:7777/courses/listPage");
+        return res.status(process.env.OK);
     }
 }
 module.exports = LoginController;
