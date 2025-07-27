@@ -4,5 +4,5 @@ const router = express.Router();
  
 router.use('/login', require('./login'));
 
-router.use(require('../'))
+router.use(require('../middleware/errorHandller'))
 module.exports = router;

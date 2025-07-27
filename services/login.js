@@ -1,13 +1,14 @@
 const JWT = require('jsonwebtoken');
 const LoginValidation = require('../utils/validation/login');
 const UsersRepository = require('../repositories/users');
+const DetailedError = require('../errors/detailedError');
 const MD5 = require('md5');
 
 class LoginService {
     static async authorizationProcess(values) {
         const oneDay = 24 * 60 * 60;
         if (!values || typeof values !== 'object')
-            throw new TypeError('Unvalid varables type sent from the controller!', STATUS_CODES.BED_REQUEST);
+            throw new DetailedError('Unvalid varables type sent from the controller!', STATUS_CODES.BED_REQUEST);
 
         const { userName, password } = values;
         let validation = new LoginValidation({ userName, password });

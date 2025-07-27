@@ -1,4 +1,5 @@
 const LoginService = require('../services/login');
+const DetailedError = require('../errors/detailedError');
 
 class LoginController {
     static async authorizationProcess(req, res) {
@@ -6,7 +7,7 @@ class LoginController {
         const oneDay = 24 * 60 * 60 * 1000
         const accessToken = await LoginService.authorizationProcess({ userName, password });
         if (!accessToken)
-            throw new Error('No Access Token provided.', STATUS_CODES.UNAUTHORIZED);
+            throw new DetailedError('No Access Token provided.', STATUS_CODES.UNAUTHORIZED);
         res.cookie('token', accessToken, {
             httpOnly: true,
             maxAge: oneDay,

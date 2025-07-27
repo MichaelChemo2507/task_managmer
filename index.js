@@ -3,6 +3,7 @@ const port = 7777;
 const dotenv = require('dotenv');
 const express = require('express');
 var cookieParser = require('cookie-parser');
+require('./utils/statusCodes');
 
 
 const app = express();
@@ -20,5 +21,5 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 
 app.listen(port, () => {
-  console.log(`Now listening on http://localhost:${port}/courses/listPage`);
+  console.log(`Now listening on http://localhost:${port}/`);
 });

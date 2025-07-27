@@ -1,4 +1,5 @@
 const Validation = require('./validation');
+const DetailedError = require('../errors/detailedError');
 module.exports = class LoginValidation extends Validation {
     constructor(values) {
         super(values);
@@ -16,7 +17,7 @@ module.exports = class LoginValidation extends Validation {
                 throw new Error('Invalid password!');
             }
         } catch (error) {
-            throw new Error(error.message, STATUS_CODES.BED_REQUEST);
+            throw new DetailedError(error.message, STATUS_CODES.BED_REQUEST);
         }
     }
     res_validate() {
@@ -26,7 +27,7 @@ module.exports = class LoginValidation extends Validation {
             if (typeof this.values[0] !== 'object' || typeof this.values[0].id !== 'number')
                 throw new Error('Unauthorized user!');
         } catch (error) {
-            throw new Error(error.message, STATUS_CODES.UNAUTHORIZED);
+            throw new DetailedError(error.message, STATUS_CODES.UNAUTHORIZED);
         }
     }
 } 
