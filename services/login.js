@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken');
 const LoginValidation = require('../utils/validation/login');
 const UsersRepository = require('../repositories/users');
-const DetailedError = require('../errors/detailedError');
+const DetailedError = require('../utils/errors/detailedError');
 const MD5 = require('md5');
 
 class LoginService {

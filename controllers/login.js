@@ -1,5 +1,5 @@
 const LoginService = require('../services/login');
-const DetailedError = require('../errors/detailedError');
+const DetailedError = require('../utils/errors/detailedError');
 
 class LoginController {
     static async authorizationProcess(req, res) {
