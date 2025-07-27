@@ -1,6 +1,16 @@
 const errorHandler = (error, req, res, next) => {
-    console.log(error.code);
-    
+    console.error(error);
+    if (error.code === 401) {
+        res.status(error.code).send("client error: " + error.message + " - please check your registration."); // In the future it sapose to redirect to error page;
+    } else if (error.code === 400 || error.code === 403 || error.code === 404) {
+        res.status(error.code).send("client error: " + error.message); // In the future it sapose to redirect to error page;
+    } else if (error.code === 500 || error.code === 501) {
+        console.error("server Error: " + error.message + ": " + error.code);
+        res.status(STATUS_CODES.INTERNAL_SERVER).send("Somthing whent wrong! please try again later.");
+    } else {
+        res.status(STATUS_CODES.INTERNAL_SERVER).send("Somthing whent wrong! please try again later.");
+    }
+
 };
 
 module.exports = errorHandler;

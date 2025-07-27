@@ -11,7 +11,7 @@ module.exports = class LoginValidation extends Validation {
                 throw new TypeError('Invalid request!');
             const { userName, password } = this.values;
             if (!userName || typeof userName !== 'string' || userName.trim().length < 3) {
-                throw new Error('Invalid userName!');
+                throw new Error('Invalid user name!');
             }
             if (!password || typeof password !== 'string' || password.length < 8) {
                 throw new Error('Invalid password!');
@@ -22,9 +22,7 @@ module.exports = class LoginValidation extends Validation {
     }
     res_validate() {
         try {
-            if (!this.values || typeof this.values !== 'object' || result.length == 0)
-                throw new TypeError('No respons from DB!');
-            if (typeof this.values[0] !== 'object' || typeof this.values[0].id !== 'number')
+            if (!this.values || typeof this.values !== 'object' || this.values.length == 0 || typeof this.values[0] !== 'object' || typeof this.values[0].id !== 'number')
                 throw new Error('Unauthorized user!');
         } catch (error) {
             throw new DetailedError(error.message, STATUS_CODES.UNAUTHORIZED);
