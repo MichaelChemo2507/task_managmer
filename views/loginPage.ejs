@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGN IN</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content:center;
+            align-items: center;
+            
+            background-color: cornflowerblue;
+            height: 700px;
+        }
+        form{
+            width: 400px;
+            height: 350px;
+            display: grid;
+            align-items: center;
+            background-color: white;
+            border-radius: 20px;
+        }
+        input{
+            font-size: large;
+            text-align: center;
+            width: 75%;
+            margin: 0px auto;
+            align-self: end;
+        }
+        #btn{
+            width: 50%;
+        }
+        h2{
+            margin-bottom: 10px;
+        }
+        a{
+            padding-left: 40px;
+        }
+        a:link {color:#ff0000;text-decoration:none;}
+        a:visited {color:cornflowerblue;text-decoration:none;}
+        a:hover {text-decoration:underline;}
+    </style>
+</head>
+<body>
+<h2>SIGN IN</h2>
+<form method="<%= data.method %>" action="<%= data.URL %>">
+    <input type="userName" name="userName" id="userName" placeholder="user name...">
+    <input type="password" name="password" id="password" placeholder="password...">
+    <input id="btn" type="submit" value="<%= data.btnText %>">
+    <a href="http://localhost:7777/registration/">Not Signd Yet?</a>
+</form>
+</form>
+</body>
+</html>
