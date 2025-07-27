@@ -44,7 +44,7 @@
         a{
             padding-left: 40px;
         }
-        a:link {color:#ff0000;text-decoration:none;}
+        a:link {color:cornflowerblue;text-decoration:none;}
         a:visited {color:cornflowerblue;text-decoration:none;}
         a:hover {text-decoration:underline;}
     </style>
@@ -52,8 +52,16 @@
 <body>
 <h2>SIGN IN</h2>
 <form method="<%= data.method %>" action="<%= data.URL %>">
+    <% if (data.errorMessage) { %>
+        <h4 style="color: rgb(254, 60, 60);text-align: center;"><%= data.errorMessage %></h4>
+    <% } %>
+    <% if (data.inputs) { %>
+    <input type="userName" name="userName" id="userName" value="<%= data.inputs %>" placeholder="user name...">
+    <input type="password" name="password" id="password" placeholder="password...">
+    <% } else {%>
     <input type="userName" name="userName" id="userName" placeholder="user name...">
     <input type="password" name="password" id="password" placeholder="password...">
+    <% } %>
     <input id="btn" type="submit" value="<%= data.btnText %>">
     <a href="http://localhost:7777/registration/">Not Signd Yet?</a>
 </form>
