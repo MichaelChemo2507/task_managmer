@@ -3,6 +3,7 @@ const LoginController = require('../controllers/login');
 const { tryCatch } = require('../utils/tryCatch');
 const router = express.Router();
 
+router.get('/', tryCatch(LoginController.getLoginPage));
 router.post('/', tryCatch(LoginController.authorizationProcess));
 
 module.exports = router;

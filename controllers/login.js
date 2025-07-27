@@ -2,6 +2,15 @@ const LoginService = require('../services/login');
 const DetailedError = require('../utils/errors/detailedError');
 
 class LoginController {
+    static async getLoginPage(req, res) {
+        res.status(STATUS_CODES.OK).render('loginPage', {
+            data: {
+                btnText: 'SUBMIT',
+                URL: 'http://localhost:7777/login/',
+                method: 'post',
+            },
+        })
+    }
     static async authorizationProcess(req, res) {
         let { userName, password } = req.body;
         const oneDay = 24 * 60 * 60 * 1000
