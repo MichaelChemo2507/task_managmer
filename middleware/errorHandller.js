@@ -14,9 +14,9 @@ const errorHandler = (error, req, res, next) => {
         })
     } else if (error.code === 500 || error.code === 501) {
         console.error("server Error: " + error.message + ": " + error.code);
-        res.status(STATUS_CODES.INTERNAL_SERVER).send("Somthing whent wrong! please try again later.");
+        res.status(STATUS_CODES.INTERNAL_SERVER).send("Something went wrong! please try again later.");
     } else {
-        res.status(STATUS_CODES.INTERNAL_SERVER).send("Somthing whent wrong! please try again later.");
+        res.status(STATUS_CODES.INTERNAL_SERVER).send("Something went wrong! please try again later.");
     }
 
 };

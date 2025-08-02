@@ -22,6 +22,10 @@ class LoginService {
         const accessToken = JWT.sign({
             ID: result[0].id
         }, process.env.ACCESS_SECRET_TOKEN, { expiresIn: oneDay })
+
+        if (!accessToken)
+            throw new DetailedError('No Access Token provided.', STATUS_CODES.UNAUTHORIZED);
+
         return accessToken;
     }
 }

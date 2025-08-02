@@ -21,5 +21,5 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 
 app.listen(port, () => {
-  console.log(`Now listening on http://localhost:${port}/`);
+  console.log(`Now listening on http://localhost:${port}/login`);
 });
