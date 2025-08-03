@@ -1,5 +1,4 @@
-const LoginService = require('../services/login');
-const DetailedError = require('../utils/errors/detailedError');
+const LoginService = require('../services/users');
 
 class LoginController {
     static async getLoginPage(req, res) {
@@ -12,9 +11,8 @@ class LoginController {
         })
     }
     static async authorizationProcess(req, res) {
-        let { userName, password } = req.body;
         const oneDay = 24 * 60 * 60 * 1000
-        const accessToken = await LoginService.authorizationProcess({ userName, password });
+        const accessToken = await LoginService.authorizationProcess(req.body);
         res.cookie('token', accessToken, {
             httpOnly: true,
             maxAge: oneDay,
