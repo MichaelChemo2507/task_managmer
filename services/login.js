@@ -14,7 +14,7 @@ class LoginService {
         let validation = new LoginValidation({ userName, password });
         validation.req_validate();
 
-        let result = await UsersRepository.authorizationProcess([String(userName).trim(), MD5(String(password) + process.env.SECRET_SALT)]);
+        let result = await UsersRepository.authorizationProcess([MD5(String(password) + process.env.SECRET_SALT), String(userName).trim()]);
 
         validation = new LoginValidation(result);
         validation.res_validate();
