@@ -1,6 +1,6 @@
 const UsersService = require('../services/users');
 
-class registrationController {
+class RegistrationController {
     static async getRegistrationPage(req, res) {
         res.status(STATUS_CODES.OK).render('registrationPage', {
             data: {
@@ -26,4 +26,4 @@ class registrationController {
     }
 }
 
-module.exports = registrationController;
+module.exports = RegistrationController;
