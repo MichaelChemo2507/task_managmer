@@ -14,15 +14,15 @@
     <h2>Categories List</h2>
     <table style="border: 1px solid black;">
         <tr>
-            <%for( let i = 0;i < Object.keys(result[0]).length; i++){%>
-                <th><%= Object.keys(result[0])[i] %></th>
+            <%for( let i = 0;i < Object.keys(data.result[0]).length; i++){%>
+                <th><%= Object.keys(data.result[0])[i] %></th>
             <%}%>
         </tr>
         <% for(let i = 0; i < result.length; i++){%>
             <tr>
-                <form action="/users/<%= Object.values(result[i])[0] %>" method="post"></form>
-                <%for(let k = 0; k < Object.values(result[i]).length; k++){%>
-                    <td><input type="text" value="<%=Object.values(result[i])[k]%>" ></td>
+                <form action="/users/<%= Object.values(data.result[i])[0] %>" method="post"></form>
+                <%for(let k = 0; k < Object.values(data.result[i]).length; k++){%>
+                    <td><input type="text" value="<%=Object.values(data.result[i])[k]%>" ></td>
                 <%}%>
                 <td>
                     <button>UPDATE</button>
@@ -37,13 +37,13 @@
         <%}%>
         <tr>
             <td>
-                <form action="">
-                    <% if(page > 0) { %>
-                        <button name="page" value="<%= Number(page)-1 %>">BACK</button>
+                <form action="/categories/page">
+                    <% if(data.page > 0) { %>
+                        <button name="page" value="<%= Number(data.page)-1 %>">BACK</button>
                     <% } %>
-                        PAGE <%= Number(page)+1 %> IN <%= total_pages %>
-                    <% if(page < total_pages - 1) { %>
-                        <button name="page" value="<%= Number(page)+1 %>">NEXT</button>
+                        PAGE <%= Number(data.page)+1 %> IN <%= data.totalPages %>
+                    <% if(data.page < data.totalPages - 1) { %>
+                        <button name="page" value="<%= Number(data.page)+1 %>">NEXT</button>
                     <% } %>
                 </form>
             </td>
