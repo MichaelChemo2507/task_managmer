@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGN UP</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content:center;
+            align-items: center;
+            
+            background-color: cornflowerblue;
+            height: 700px;
+        }
+        form{
+            border-radius: 20px;
+            width: 400px;
+            height: 550px;
+            display: grid;
+            align-items: center;
+            background-color: white;
+        }
+        .inputs{
+            font-size: large;
+            text-align: center;
+            width: 75%;
+            margin: 0px auto;
+        }
+        #btn{
+            width: 50%;
+            align-self: start;
+        }
+        h2{
+            margin-bottom: 10px;
+        }
+        
+        a{
+            padding-left: 40px;
+        }
+        a:link {color:#ff0000;text-decoration:none;}
+        a:visited {color:cornflowerblue;text-decoration:none;}
+        a:hover {text-decoration:underline;}
+    </style>
+</head>
+<body>
+<h2>SIGN UP</h2>
+<form method="<%= data.method %>" action="<%= data.URL %>">
+    <select class="inputs" name="userLevel">
+            <%for( let i = 0; i < data.userLevel.length; i++){%>
+                <option value="<%= data.userLevel[i].ID %>"><%= data.userLevel[i].name %></option>
+            <%}%>
+    </select>
+    <input class="inputs" type="text" name="userName" id="UserName" placeholder="user name...">
+    <input class="inputs" type="text" name="name" id="name" placeholder="full name...">
+    <input class="inputs" type="email" name="email" id="email" placeholder="email...">
+    <input class="inputs" type="password" name="password" id="password" placeholder="password...">
+    <input class="inputs" id="btn" type="submit" value="<%= data.btnText %>">
+    <a href="http://localhost:7777/login/">Back To Sign In</a>
+</form>
+</form>
+</body>
+</html>
