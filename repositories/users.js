@@ -14,6 +14,7 @@ class Users {
         return rows;
     }
     static async addUser(values) {
+        console.log(values);
         const sql =
             'INSERT INTO `users`(`user_name`,`email`,`password`) VALUES (?,?,?)';
         const [rows, fields] = await connection.pool.execute(sql, values);

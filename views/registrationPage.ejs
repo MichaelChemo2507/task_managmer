@@ -21,6 +21,7 @@
             height: 700px;
         }
         form{
+            padding-top: 5%;
             border-radius: 20px;
             width: 400px;
             height: 550px;
@@ -51,13 +52,16 @@
     </style>
 </head>
 <body>
-<h2>SIGN UP</h2>
+<h2>RAGISTRATION</h2>
 <form method="<%= data.method %>" action="<%= data.URL %>">
+    <% if (data.errorMessage) { %>
+        <h4 style="color: rgb(254, 60, 60);text-align: center;"><%= data.errorMessage %></h4>
+    <% } %>
     <input class="inputs" type="text" name="userName" id="UserName" placeholder="user name...">
     <input class="inputs" type="email" name="email" id="email" placeholder="email...">
     <input class="inputs" type="password" name="password" id="password" placeholder="password...">
     <input class="inputs" id="btn" type="submit" value="<%= data.btnText %>">
-    <a href="http://localhost:7777/login/">Back To Login</a>
+    <a href="<%= data.LOGIN_URL %>">Back To Login</a>
 </form>
 </form>
 </body>

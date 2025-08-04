@@ -32,9 +32,10 @@ class UsersService {
         return rows;
     }
     static async addUser({ userName, email, password }) {
-
         let validation = new UsersValidation({ userName, password, email });
         validation.req_validate();
+        console.log(password);
+        console.log(typeof password);
         let rows = await UsersRepository.addUser([String(userName).trim(), String(email).trim(), MD5(String(password) + process.env.SECRET_SALT)]);
         if (!rows.affectedRows || rows.affectedRows < 0)
             throw new DetailedError("No result from db",'users_service', STATUS_CODES.BED_REQUEST)
@@ -43,7 +44,7 @@ class UsersService {
     }
     static async deleteUser(id) {
         if (!id || id < 0)
-            throw new DetailedError("Invalid id", STATUS_CODES.BED_REQUEST)
+            throw new DetailedError("Invalid id",'users_service', STATUS_CODES.BED_REQUEST)
         let rows = await UsersRepository.deleteUser([id]);
         if (!rows.affectedRows || rows.affectedRows < 0)
             throw new DetailedError("No result from db",'users_service', STATUS_CODES.INTERNAL_SERVER)
