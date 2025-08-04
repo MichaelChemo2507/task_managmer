@@ -44,20 +44,17 @@ class UsersService {
     static async deleteUser(id) {
         if (!id || id < 0)
             throw new DetailedError("Invalid id", STATUS_CODES.BED_REQUEST)
-        let validation = new UsersValidation({ userName, password, email });
-        validation.req_validate();
         let rows = await UsersRepository.deleteUser([id]);
         if (!rows.affectedRows || rows.affectedRows < 0)
-            throw new DetailedError("No result from db", STATUS_CODES.BED_REQUEST)
+            throw new DetailedError("No result from db", STATUS_CODES.INTERNAL_SERVER)
         return rows.affectedRows;
     }
     static async updateUser({ userName, email, password }, id) {
         if (id)
             if (typeof id !== typeof 1 || id <= 0)
-                throw new Error('Invalid id!');
+                throw new DetailedError("Invalid id", STATUS_CODES.BED_REQUEST)
 
         let rows = await UsersRepository.updateUser([String(userName).trim(), String(email).trim(), MD5(String(password) + process.env.SECRET_SALT), id]);
-
         if (!rows.affectedRows || rows.affectedRows < 0)
             throw new DetailedError("No result from db", STATUS_CODES.BED_REQUEST)
         return rows.affectedRows;

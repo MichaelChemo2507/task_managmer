@@ -9,14 +9,14 @@ module.exports = class LoginValidation extends Validation {
         try {
             if (!this.values || typeof this.values !== 'object')
                 throw new TypeError('Invalid request!');
-            const { userName, password, email, id } = this.values;
+            const { userName, password, email} = this.values;
             if (!userName || typeof userName !== 'string' || userName.trim().length < 3) {
                 throw new Error('Invalid user name!');
             }
             if (!password || typeof password !== 'string' || password.length < 8) {
                 throw new Error('Invalid password!');
             }
-            if (!email || typeof password !== 'string' || password.trim().length < 5) {
+            if (!email || typeof email !== 'string' || email.trim().length < 5) {
                 throw new Error('Invalid email!');
             }
             
