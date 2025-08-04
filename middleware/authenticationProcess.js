@@ -8,7 +8,7 @@ function authenticationProcess(req, res, next) {
         if (!jwtToken || typeof jwtToken === typeof "") {
             JWT.verify(jwtToken, process.env.ACCESS_SECRET_TOKEN, (err, decodedToken) => {
                 if (err)
-                    throw new Error("Failure in the authintication process");
+                    throw new Error("Faild to authinticate");
                 else {
                     req.user_id = decodedToken.ID;
                 }
@@ -18,7 +18,8 @@ function authenticationProcess(req, res, next) {
             throw new Error("Authorization expired. login required.");
         next();
     } catch (err) {
-        const error = new DetailedError(err.message, STATUS_CODES.FORBIDDEN);
+        const error = new DetailedError(err.message,"authentication_process", STATUS_CODES.FORBIDDEN);
         next(error);
     }
 }
+module.exports = authenticationProcess;

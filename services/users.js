@@ -37,7 +37,7 @@ class UsersService {
         validation.req_validate();
         let rows = await UsersRepository.addUser([String(userName).trim(), String(email).trim(), MD5(String(password) + process.env.SECRET_SALT)]);
         if (!rows.affectedRows || rows.affectedRows < 0)
-            throw new DetailedError("No result from db", STATUS_CODES.BED_REQUEST)
+            throw new DetailedError("No result from db",'users_service', STATUS_CODES.BED_REQUEST)
 
         return rows.affectedRows;
     }
@@ -46,17 +46,17 @@ class UsersService {
             throw new DetailedError("Invalid id", STATUS_CODES.BED_REQUEST)
         let rows = await UsersRepository.deleteUser([id]);
         if (!rows.affectedRows || rows.affectedRows < 0)
-            throw new DetailedError("No result from db", STATUS_CODES.INTERNAL_SERVER)
+            throw new DetailedError("No result from db",'users_service', STATUS_CODES.INTERNAL_SERVER)
         return rows.affectedRows;
     }
     static async updateUser({ userName, email, password }, id) {
         if (id)
             if (typeof id !== typeof 1 || id <= 0)
-                throw new DetailedError("Invalid id", STATUS_CODES.BED_REQUEST)
+                throw new DetailedError("Invalid id",'users_service', STATUS_CODES.BED_REQUEST)
 
         let rows = await UsersRepository.updateUser([String(userName).trim(), String(email).trim(), MD5(String(password) + process.env.SECRET_SALT), id]);
         if (!rows.affectedRows || rows.affectedRows < 0)
-            throw new DetailedError("No result from db", STATUS_CODES.BED_REQUEST)
+            throw new DetailedError("No result from db",'users_service', STATUS_CODES.BED_REQUEST)
         return rows.affectedRows;
     }
 }

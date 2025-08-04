@@ -17,7 +17,7 @@ module.exports = class LoginValidation extends Validation {
                 throw new Error('Invalid password!');
             }
         } catch (error) {
-            throw new DetailedError(error.message, STATUS_CODES.BED_REQUEST);
+            throw new DetailedError(error.message,'login', STATUS_CODES.BED_REQUEST);
         }
     }
     res_validate() {
@@ -25,7 +25,7 @@ module.exports = class LoginValidation extends Validation {
             if (!this.values || typeof this.values !== 'object' || this.values.length == 0 || typeof this.values[0] !== 'object' || typeof this.values[0].id !== 'number')
                 throw new Error('Unauthorized user!');
         } catch (error) {
-            throw new DetailedError(error.message, STATUS_CODES.UNAUTHORIZED);
+            throw new DetailedError(error.message,'login', STATUS_CODES.UNAUTHORIZED);
         }
     }
 } 

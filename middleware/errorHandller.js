@@ -1,9 +1,16 @@
 const errorHandler = (error, req, res, next) => {
     console.error(error);
     if (error.code === 401) {
-        res.status(error.code).send("client error: " + error.message + " - please check your registration."); // In the future it sapose to redirect to error page;
+        res.status(error.code).render('loginPage', {
+            data: {
+                errorMessage: error.message,
+                btnText: 'SUBMIT',
+                URL: 'http://localhost:7777/login/',
+                method: 'post',
+            },
+        })
     } else if (error.code === 400) {
-        if (error.message === "Invalid user name!" || error.message === "Invalid password!") {
+        if (error.title === 'login') {
             res.status(error.code).render('loginPage', {
                 data: {
                     inputs: req.body.userName,

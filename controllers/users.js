@@ -23,7 +23,17 @@ class LoginController {
         return res.status(STATUS_CODES.OK).json({ success: true });
     }
     static async registrationProcess(req, res) {
-        
+        const insertId = await UsersService.addUser(req.body);
+        res.status(process.env.OK).render('messagePage', {
+            data: {
+                message: "Your Registration Was Successfully Completed!"
+            },
+            variables: {
+                page_title: "resistration",
+                linkText: "Go To Login Page.",
+                URL: "http://localhost:7777/login/"
+            }
+        });
     }
     static async getAll(req, res) {
         const users = await UsersService.getAll();
