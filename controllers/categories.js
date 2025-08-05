@@ -31,17 +31,17 @@ class CategoriesController {
 
         const result = await CategoriesService.addCategory({ categoryName, userId });
 
-        res.status(STATUS_CODES.OK).json({ success: true, result: result });
+        res.status(STATUS_CODES.OK).redirect("categories/page");
     }
     static async deleteCategory(req, res) {
         const affectedRows = await CategoriesService.deleteCategory(parseInt(req.params.id));
 
-        return res.status(STATUS_CODES.NO_CONTECT).json({ success: true, message: `category is delete` });
+        return res.status(STATUS_CODES.NO_CONTECT).redirect("categories/page");
     }
     static async updateCategory(req, res) {
         const affectedRows = await CategoriesService.updateCategory(req.body, parseInt(req.params.id));
 
-        res.status(STATUS_CODES.CREATED).json({ success: true, message: `category is updated` });
+        res.status(STATUS_CODES.CREATED).redirect("categories/page");
     }
 }
 
