@@ -36,12 +36,12 @@ class CategoriesController {
     static async deleteCategory(req, res) {
         const affectedRows = await CategoriesService.deleteCategory(parseInt(req.params.id));
 
-        return res.status(STATUS_CODES.NO_CONTECT).redirect("categories/page");
+        return res.status(STATUS_CODES.NO_CONTECT).redirect("http://localhost:7777/categories/page");
     }
     static async updateCategory(req, res) {
         const affectedRows = await CategoriesService.updateCategory(req.body, parseInt(req.params.id));
 
-        res.status(STATUS_CODES.CREATED).redirect("categories/page");
+        res.status(STATUS_CODES.CREATED).redirect("http://localhost:7777/categories/page");
     }
 }
 

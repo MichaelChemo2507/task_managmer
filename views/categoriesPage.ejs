@@ -12,6 +12,7 @@
         <input type="submit" value="Add Category" id="addCategoryBtn">
     </form>
     <h2>Categories List</h2>
+    <%if(data.result.length > 0){%>
     <table style="border: 1px solid black;">
         <tr>
             <%for( let i = 1;i < Object.keys(data.result[0]).length; i++){%>
@@ -20,14 +21,14 @@
         </tr>
         <% for(let i = 0; i < data.result.length; i++){%>
             <tr>
-                <form action="http://localhost:7777/categories/<%= Object.values(data.result[i])[0] %>" method="post"></form>
-                <%for(let k = 1; k < Object.values(data.result[i]).length; k++){%>
-                    <td><input type="text" value="<%=Object.values(data.result[i])[k]%>" ></td>
-                <%}%>
-                <td>
-                    <input type="submit" value="UPDATE">
+                <form action="http://localhost:7777/categories/<%= Object.values(data.result[i])[0] %>" method="post">
+                    <%for(let k = 1; k < Object.values(data.result[i]).length; k++){%>
+                        <td><input type="text" name="categoryName" value="<%=Object.values(data.result[i])[k]%>" ></td>
+                    <%}%>
+                    <td>
+                        <input type="submit" value="UPDATE">
+                    </td>
                 </form>
-                </td>
                 <td>
                 <form action="http://localhost:7777/categories/delete/<%= Object.values(data.result[i])[0] %>" >
                     <button>DELETE</button>
@@ -49,5 +50,9 @@
             </td>
         </tr>
     </table>
+    <%} else{%>
+        <h4>No Categories Yet</h4>
+    <%}%>
+        
 </body>
 </html>

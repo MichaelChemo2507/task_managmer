@@ -24,7 +24,7 @@ module.exports = class CategoriesValidation extends Validation {
     }
     res_validate() {
         try {
-            if (!this.values || typeof this.values !== 'object' || this.values.length == 0 || typeof this.values[0] !== 'object' || !this.values[0].id || !this.values[0].category_name)
+            if (!this.values || typeof this.values !== 'object' )
                 throw new Error('No result form DB!');
 
         } catch (error) {
