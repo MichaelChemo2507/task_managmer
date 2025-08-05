@@ -4,6 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories</title>
+    <style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: cornflowerblue;
+    margin: 40px;
+    color: #333;
+  }
+
+  h2 {
+    color: white;
+    margin-bottom: 10px;
+  }
+
+  form {
+    margin-bottom: 20px;
+  }
+
+  input[type="text"] {
+    padding: 8px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.2s;
+  }
+
+  input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  input[type="submit"],
+  button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 8px;
+  }
+
+  input[type="submit"]:hover,
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+
+  td form {
+    display: inline;
+  }
+
+  .pagination {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .pagination button {
+    margin: 0 5px;
+  }
+
+  h4 {
+    color: white;
+    font-style: italic;
+  }
+</style>
+
 </head>
 <body>
     <form action="http://localhost:7777/categories" method="post">
@@ -13,7 +97,7 @@
     </form>
     <h2>Categories List</h2>
     <%if(data.result.length > 0){%>
-    <table style="border: 1px solid black;">
+    <table>
         <tr>
             <%for( let i = 1;i < Object.keys(data.result[0]).length; i++){%>
                 <th><%= Object.keys(data.result[0])[i] %></th>

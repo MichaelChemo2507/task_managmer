@@ -13,6 +13,17 @@ const errorHandler = (error, req, res, next) => {
                 },
             })
         }
+    } else if (error.code === 403) {
+        if (error.title === 'authentication_process') {
+            res.status(error.code).render('loginPage', {
+                data: {
+                    errorMessage: error.message,
+                    btnText: 'SUBMIT',
+                    URL: 'http://localhost:7777/login/',
+                    method: 'post',
+                },
+            })
+        }
     } else if (error.code === 401) {
         res.status(error.code).render('loginPage', {
             data: {
