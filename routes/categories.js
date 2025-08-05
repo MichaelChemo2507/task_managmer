@@ -11,5 +11,6 @@ router.get('/all', tryCatch(CategoriesController.getAll));
 router.get('/:id', tryCatch(CategoriesController.getAllByUserId));
 router.get('/delete/:id', tryCatch(CategoriesController.deleteCategory));
 router.post('/', tryCatch(CategoriesController.addCategory));
+router.post('/:id', tryCatch(CategoriesController.updateCategory));
 
 module.exports = router;

@@ -23,15 +23,19 @@ class CategoriesController {
     }
     static async addCategory(req, res) {
         console.log(req.body);
-        
-        const { categoryName,userId } = req.body;
+
+        const { categoryName, userId } = req.body;
         // const result = await CategoriesService.addCategory({categoryName,req.user_id});
-        const result = await CategoriesService.addCategory({ categoryName,userId });
+        const result = await CategoriesService.addCategory({ categoryName, userId });
         res.status(STATUS_CODES.OK).json({ success: true, result: result });
     }
     static async deleteCategory(req, res) {
         const affectedRows = await CategoriesService.deleteCategory(parseInt(req.params.id));
         return res.status(STATUS_CODES.NO_CONTECT).json({ success: true, message: `category is delete` });
+    }
+    static async updateCategory(req, res) {
+        const affectedRows = await CategoriesService.updateCategory(req.body, parseInt(req.params.id));
+        res.status(STATUS_CODES.CREATED).json({ success: true, message: `category is updated` });
     }
 }
 

@@ -22,6 +22,12 @@ class CategoriesRepository {
         const [rows, fields] = await connection.pool.execute(sql, values);
         return rows;
     }
+    static async updateCategory(values) {
+        const sql =
+            'UPDATE `categories` SET `category_name` = ? WHERE `id` = ?';
+        const [rows, fields] = await connection.pool.execute(sql, values);
+        return rows;
+    }
 }
 
 module.exports = CategoriesRepository;
