@@ -21,6 +21,14 @@ class CategoriesController {
         const result = await CategoriesService.getAllByUserId(req.params.id);
         res.status(STATUS_CODES.OK).json({ success: true, result: result });
     }
+    static async addCategory(req, res) {
+        console.log(req.body);
+        
+        const { categoryName,userId } = req.body;
+        // const result = await CategoriesService.addCategory({categoryName,req.user_id});
+        const result = await CategoriesService.addCategory({ categoryName,userId });
+        res.status(STATUS_CODES.OK).json({ success: true, result: result });
+    }
 }
 
 module.exports = CategoriesController;

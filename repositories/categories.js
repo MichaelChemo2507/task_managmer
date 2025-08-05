@@ -12,6 +12,12 @@ class CategoriesRepository {
         const [rows, fields] = await connection.pool.execute(sql, values);
         return rows;
     }
+    static async addCategory(values) {
+        console.log(values);
+        const sql = 'INSERT INTO `categories`(`category_name`,`user_id`) VALUES(?,?)';
+        const [rows, fields] = await connection.pool.execute(sql, values);
+        return rows;
+    }
 }
 
 module.exports = CategoriesRepository;

@@ -13,8 +13,12 @@ class Users {
         });
         return rows;
     }
+    static async getUserById(values) {
+        const sql = 'SELECT 1 FROM `users` WHERE `id` = ?';
+        const [rows, fields] = await connection.pool.execute(sql, values);
+        return rows;
+    }
     static async addUser(values) {
-        console.log(values);
         const sql =
             'INSERT INTO `users`(`user_name`,`email`,`password`) VALUES (?,?,?)';
         const [rows, fields] = await connection.pool.execute(sql, values);
