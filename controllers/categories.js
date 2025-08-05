@@ -29,6 +29,10 @@ class CategoriesController {
         const result = await CategoriesService.addCategory({ categoryName,userId });
         res.status(STATUS_CODES.OK).json({ success: true, result: result });
     }
+    static async deleteCategory(req, res) {
+        const affectedRows = await CategoriesService.deleteCategory(parseInt(req.params.id));
+        return res.status(STATUS_CODES.NO_CONTECT).json({ success: true, message: `category is delete` });
+    }
 }
 
 module.exports = CategoriesController;

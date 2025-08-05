@@ -9,6 +9,7 @@ router.get('/page', tryCatch(CategoriesController.getCategoriesPage));
 router.get('/all', tryCatch(CategoriesController.getAll));
 //router.get('/', tryCatch(CategoriesController.getAllByUserId)); //with authentcation
 router.get('/:id', tryCatch(CategoriesController.getAllByUserId));
+router.get('/delete/:id', tryCatch(CategoriesController.deleteCategory));
 router.post('/', tryCatch(CategoriesController.addCategory));
 
 module.exports = router;

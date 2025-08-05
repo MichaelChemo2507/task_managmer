@@ -27,13 +27,19 @@ class CategoriesService {
             throw new DetailedError("Invalid data", 'categories', STATUS_CODES.BED_REQUEST);
         let result = await UsersRepository.getUserById([userId]);
         if (!result || result.length <= 0)
-            throw new DetailedError("Invalid id", 'categories', STATUS_CODES.BED_REQUEST);
-        console.log(userId,categoryName);
-        
+            throw new DetailedError("Invalid id", 'categories', STATUS_CODES.BED_REQUEST);        
         let rows = await CategoriesRepository.addCategory([categoryName, userId]);
         if (rows.insertId === 0)
             throw new DetailedError("No category was added", 'categories', STATUS_CODES.INTERNAL_SERVER);
             return rows.insertId;
+    }
+    static async deleteCategory(id) {
+        if (!id || id < 0)
+            throw new DetailedError("Invalid id",'users_service', STATUS_CODES.BED_REQUEST)
+        let rows = await CategoriesRepository.deleteCategory([id]);
+        if (!rows.affectedRows || rows.affectedRows < 0)
+            throw new DetailedError("No category exist",'categories', STATUS_CODES.BED_REQUEST)
+        return rows.affectedRows;
     }
 }
 
