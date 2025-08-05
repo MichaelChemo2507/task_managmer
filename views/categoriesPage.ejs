@@ -6,7 +6,7 @@
     <title>Categories</title>
 </head>
 <body>
-    <form>
+    <form action="http://localhost:7777/categories" method="post">
         <h2>Add Category</h2>
         <input type="text" name="categoryName" id="categoryName" placeholder="Category Name..." required>
         <input type="submit" value="Add Category" id="addCategoryBtn">
@@ -14,22 +14,22 @@
     <h2>Categories List</h2>
     <table style="border: 1px solid black;">
         <tr>
-            <%for( let i = 0;i < Object.keys(data.result[0]).length; i++){%>
+            <%for( let i = 1;i < Object.keys(data.result[0]).length; i++){%>
                 <th><%= Object.keys(data.result[0])[i] %></th>
             <%}%>
         </tr>
-        <% for(let i = 0; i < result.length; i++){%>
+        <% for(let i = 0; i < data.result.length; i++){%>
             <tr>
-                <form action="/users/<%= Object.values(data.result[i])[0] %>" method="post"></form>
-                <%for(let k = 0; k < Object.values(data.result[i]).length; k++){%>
+                <form action="http://localhost:7777/categories/<%= Object.values(data.result[i])[0] %>" method="post"></form>
+                <%for(let k = 1; k < Object.values(data.result[i]).length; k++){%>
                     <td><input type="text" value="<%=Object.values(data.result[i])[k]%>" ></td>
                 <%}%>
                 <td>
-                    <button>UPDATE</button>
+                    <input type="submit" value="UPDATE">
                 </form>
                 </td>
                 <td>
-                <form action="/users/<%= Object.values(result[i])[0] %>" >
+                <form action="http://localhost:7777/categories/delete/<%= Object.values(data.result[i])[0] %>" >
                     <button>DELETE</button>
                 </form>
                 </td>
@@ -37,7 +37,7 @@
         <%}%>
         <tr>
             <td>
-                <form action="/categories/page">
+                <form action="http://localhost:7777/categories/page">
                     <% if(data.page > 0) { %>
                         <button name="page" value="<%= Number(data.page)-1 %>">BACK</button>
                     <% } %>

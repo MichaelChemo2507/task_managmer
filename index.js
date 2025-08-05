@@ -3,6 +3,7 @@ const port = 7777;
 const dotenv = require('dotenv');
 const express = require('express');
 var cookieParser = require('cookie-parser');
+const morgan = require("morgan");
 require('./utils/statusCodes');
 
 
@@ -10,9 +11,12 @@ const app = express();
 app.use(express.json());
 
 app.use(cookieParser());
+app.use(morgan("dev"));
 dotenv.config();
+
 const bodyParser = require('body-parser');
 const path = require('path');
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/',require('./routes/router'));

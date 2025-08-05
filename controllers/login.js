@@ -17,7 +17,7 @@ class LoginController {
             httpOnly: true,
             maxAge: oneDay,
         });
-        return res.status(STATUS_CODES.OK).json({ success: true });
+        return res.status(STATUS_CODES.OK).redirect("http://localhost:7777/categories/page");
     }
 }
 
