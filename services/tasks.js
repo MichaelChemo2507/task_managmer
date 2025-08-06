@@ -1,9 +1,8 @@
-const CategoriesRepository = require('../repositories/categories');
-const UsersRepository = require('../repositories/users')
+const TasksRepository = require('../repositories/tasks');
 const DetailedError = require('../utils/errors/detailedError');
-const CategoriesValidation = require('../utils/validation/categories')
+const TasksValidation = require('../utils/validation/tasks')
 
-class CategoriesService {
+class TasksService {
 
     static async getTotalPages(id) {
         if (!id || id === null || id <= 0)
@@ -16,9 +15,9 @@ class CategoriesService {
         return rows[0].cnt;
     }
     static async getAll() {
-        let rows = await CategoriesRepository.getAll();
+        let rows = await TasksRepository.getAll();
 
-        let validation = new CategoriesValidation(rows);
+        let validation = new TasksValidation(rows);
         validation.res_validate();
 
         return rows;
@@ -38,6 +37,7 @@ class CategoriesService {
         
         let validation = new CategoriesValidation(rows);
         validation.res_validate();
+        console.log(rows);
         
         return rows;
     }
@@ -82,4 +82,4 @@ class CategoriesService {
     }
 }
 
-module.exports = CategoriesService;
+module.exports = TasksService;

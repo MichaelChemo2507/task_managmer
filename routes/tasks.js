@@ -1,0 +1,15 @@
+const express = require('express');
+const TasksController = require('../controllers/tasks');
+const { tryCatch } = require('../utils/tryCatch');
+const router = express.Router();
+
+// router.use(require('../middleware/authenticationProcess'));
+
+// router.get('/page', tryCatch(CategoriesController.getCategoriesPage));
+router.get('/all', tryCatch(TasksController.getAll));
+// router.get('/', tryCatch(CategoriesController.getAllByUserId));
+// router.get('/delete/:id', tryCatch(CategoriesController.deleteCategory));
+// router.post('/', tryCatch(CategoriesController.addCategory));
+// router.post('/:id', tryCatch(CategoriesController.updateCategory));
+
+module.exports = router;
