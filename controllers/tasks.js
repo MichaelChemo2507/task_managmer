@@ -21,7 +21,7 @@ class TasksController {
         return res.status(STATUS_CODES.OK).json({ success: true, result: result });
     }
     static async getAllByUserId(req, res) {
-        const result = await CategoriesService.getAllByUserId(req.user_id);
+        const result = await TasksServiceService.getAllByUserId(req.user_id);
 
         res.status(STATUS_CODES.OK).json({ success: true, result: result });
     }

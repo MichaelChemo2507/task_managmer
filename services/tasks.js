@@ -34,7 +34,7 @@ class TasksService {
         if (pageParameters)
             rows = await TasksRepository.getAllByUserId({ userId: Number(id), sortParameters: sortParameters, pageParameters: [page * rowsPerPage, rowsPerPage] });
         else
-            rows = await TasksRepository.getAllByUserId({ userId: Number(id), values: values });
+            rows = await TasksRepository.getAllByUserId({ userId: Number(id), sortParameters: sortParameters });
 
         let validation = new TasksValidation(rows);
         validation.res_validate();
