@@ -17,13 +17,23 @@ class TasksRepository {
 
     }
     static async getAllByUserId(values) {
-        console.log(values);
-        let sql = 'SELECT `id`,`category_name` FROM `categories` WHERE `user_id` = ?';
-        
-        if (values.length > 1)
-            sql += '  LIMIT ?, ?'
-        
-        const [rows, fields] = await connection.pool.execute(sql, values);
+        const { userId, sortParameters, pageProperties } = values;
+        let sql = 'SELECT `id`,`category_id`,`description`,`date`,`is_done` FROM `tasks` WHERE `user_id` = ?';
+        let queryValues = [userId];
+        if (sortParameters) {
+            if (sortParameters.category > 0) {
+                sql += ' AND `category_id` = ?';
+                queryValues.push(sortParameters.category);
+            } else if (sortParameters.category == 0) {
+                sql += ' AND `category_id` = null';
+            }
+
+            if (sortParameters.isDone > 0 && sortParameters.isDone < 3) {
+                sql += ' AND `is_done` = ?';
+                queryValues.push(sortParameters.isDone);
+            }
+        }
+        const [rows, fields] = await connection.pool.execute(sql, queryValues);
 
         return rows;
     }

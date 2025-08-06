@@ -22,23 +22,23 @@ class TasksService {
 
         return rows;
     }
-    static async getAllByUserId(id, pageParameters) {
+    static async getAllByUserId(id, sortParameters, pageParameters) {
         const { page, rowsPerPage } = pageParameters;
 
         if (!id || id === null || id < 0)
-            throw new DetailedError("Invalid id", 'categories', STATUS_CODES.BED_REQUEST);
+            throw new DetailedError("Invalid id", 'tasks', STATUS_CODES.BED_REQUEST);
 
+        
         let rows;
 
         if (pageParameters)
-            rows = await CategoriesRepository.getAllByUserId([id, page * rowsPerPage, rowsPerPage]);
-        else 
-            rows = await CategoriesRepository.getAllByUserId([id]);
-        
-        let validation = new CategoriesValidation(rows);
+            rows = await TasksRepository.getAllByUserId({ userId: Number(id), sortParameters: sortParameters, pageParameters: [page * rowsPerPage, rowsPerPage] });
+        else
+            rows = await TasksRepository.getAllByUserId({ userId: Number(id), values: values });
+
+        let validation = new TasksValidation(rows);
         validation.res_validate();
-        console.log(rows);
-        
+
         return rows;
     }
     static async addCategory(values) {

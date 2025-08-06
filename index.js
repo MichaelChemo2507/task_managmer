@@ -1,4 +1,4 @@
-// npm i express body-parser mysql2 ejs dotenv cookie-parser md5 jsonwebtoken
+// npm i express body-parser mysql2 ejs dotenv cookie-parser md5 jsonwebtoken morgan
 const port = 7777; 
 const dotenv = require('dotenv');
 const express = require('express');
