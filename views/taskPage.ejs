@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tesks</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: cornflowerblue;
+            margin: 40px;
+            color: #333;
+          }
+
+          h2 {
+            color: white;
+            margin-bottom: 10px;
+          }
+
+          form {
+            margin-bottom: 20px;
+          }
+
+          input[type="text"] {
+            padding: 8px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.2s;
+          }
+
+          input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+          }
+
+          input[type="submit"],
+          button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 8px;
+          }
+
+          input[type="submit"]:hover,
+          button:hover {
+            background-color: #0056b3;
+          }
+
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+          }
+
+          th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+          }
+
+          th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+          }
+
+          td form {
+            display: inline;
+          }
+
+          .pagination {
+            text-align: center;
+            margin-top: 20px;
+          }
+
+          .pagination button {
+            margin: 0 5px;
+          }
+
+          h4 {
+            color: white;
+            font-style: italic;
+          }
+        </style>
+    </head>
+    <body>
+        <form action="http://localhost:7777/task" method="post">
+            <h2>Add task</h2>
+
+            <textarea name="description" id="description" placeholder="Description..." style="resize: none;" cols="30" rows="3"></textarea>
+            <label for="date">Date:</label><input type="date" name="date" id="date" value="<%= data.date %>">
+            <label for="date">Is Done:</label><input type="checkbox" name="isDone" id="isDone" value="false">
+
+            <input type="submit" value="Add Task" id="addTaskBtn">
+        </form>
+        <form action="" method="get">
+            <label for="category">category:</label>
+            <select name="category" id="category" >
+                <option value="0" selected>All</option>
+                <option value="-1">No Category</option>
+                <%for( let i = 0;i < data.categories.length; i++){%>
+                    <option value="<%= Object.values(data.categories[i])[0] %>"><%= Object.values(data.categories[i])[1] %></option>
+                <%}%>
+            </select>
+
+            <label for="isDone">Is Done:</label>
+            <select name="isDone" id="isDone">
+                <option value="1">Done</option>
+                <option value="2">Not Done</option>
+                <option value="3" selected >All</option>
+            </select>
+
+            <input type="submit" value="Sort">
+        </form>
+        <h2>Tasks List</h2>
+        <%if(data.result.length > 0){%>
+            <table>
+                <tr>
+                    <%for( let i = 1;i < Object.keys(data.result[0]).length; i++){%>
+                        <th><%= Object.keys(data.result[0])[i] %></th>
+                    <%}%>
+                </tr>
+                <% for(let i = 0; i < data.result.length; i++){%>
+                    <tr>
+                        <form action="http://localhost:7777/categories/<%= Object.values(data.result[i])[0] %>" method="post">
+                            <%for(let k = 1; k < Object.values(data.result[i]).length; k++){%>
+                                <td><input type="text" name="categoryName" value="<%=Object.values(data.result[i])[k]%>" ></td>
+                            <%}%>
+                            <td>
+                                <input type="submit" value="UPDATE">
+                            </td>
+                        </form>
+                        <td>
+                        <form action="http://localhost:7777/categories/delete/<%= Object.values(data.result[i])[0] %>" >
+                            <button>DELETE</button>
+                        </form>
+                        </td>
+                    </tr>
+                <%}%>
+                <tr>
+                    <td>
+                        <form action="http://localhost:7777/categories/page">
+                            <% if(data.page > 0) { %>
+                                <button name="page" value="<%= Number(data.page)-1 %>">BACK</button>
+                            <% } %>
+                                PAGE <%= Number(data.page)+1 %> IN <%= data.totalPages %>
+                            <% if(data.page < data.totalPages - 1) { %>
+                                <button name="page" value="<%= Number(data.page)+1 %>">NEXT</button>
+                            <% } %>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        <%} else{%>
+            <h4>No Categories Yet</h4>
+        <%}%>
+
+    </body>
+</html>
