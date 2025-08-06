@@ -38,8 +38,10 @@ class TasksRepository {
         return rows;
     }
     static async addCategory(values) {
-        const sql = 'INSERT INTO `categories`(`category_name`,`user_id`) VALUES(?,?)';
+        const sql = 'INSERT INTO `tasks`(`user_id`, `category_id`, `description`, `date`, `is_done`) VALUES (?,?,?,?,?)';
+        
         const [rows, fields] = await connection.pool.execute(sql, values);
+        
         return rows;
     }
     static async deleteCategory(values) {

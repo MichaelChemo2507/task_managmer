@@ -1,6 +1,6 @@
 const Validation = require('./validation');
 const DetailedError = require('../errors/detailedError');
-const UsersRepository = require('../../repositories/users')
+const UsersRepository = require('../../repositories/users');
 module.exports = class CategoriesValidation extends Validation {
     constructor(values) {
         super(values);

@@ -41,10 +41,9 @@ class TasksService {
 
         return rows;
     }
-    static async addCategory(values) {
-        const { userId, categoryName } = values;
-
-        let validation = new CategoriesValidation(values);
+    static async addTask(values) {
+        
+        let validation = new TasksValidation(values);
         validation.req_validate();
 
         let rows = await CategoriesRepository.addCategory([categoryName, userId]);
