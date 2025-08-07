@@ -131,7 +131,7 @@
                 </tr>
                 <% for(let i = 0; i < data.result.length; i++){%>
                     <tr>
-                        <form action="http://localhost:7777/categories/<%= Object.values(data.result[i])[0] %>" method="post">
+                        <form action="http://localhost:7777/tasks/<%= data.result[i].id %>" method="post">
                           <td><select name="category" id="category" >
                            
                             <%if(data.result[i].category_id === 0){%>
@@ -165,7 +165,7 @@
                           </td>
                         </form>
                         <td>
-                        <form action="http://localhost:7777/categories/delete/<%= Object.values(data.result[i])[0] %>" >
+                        <form action="http://localhost:7777/tasks/delete/<%= data.result[i].id %>" >
                             <button>DELETE</button>
                         </form>
                         </td>
@@ -173,7 +173,7 @@
                 <%}%>
                 <tr>
                     <td>
-                        <form action="http://localhost:7777/categories/page">
+                        <form action="http://localhost:7777/tasks/page">
                             <% if(data.page > 0) { %>
                                 <button name="page" value="<%= Number(data.page)-1 %>">BACK</button>
                             <% } %>

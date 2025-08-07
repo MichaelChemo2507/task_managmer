@@ -46,14 +46,14 @@ class TasksController {
         const affectedRows = await TasksService.deleteTask(parseInt(req.params.id));
         console.log(affectedRows);
 
-        return res.status(STATUS_CODES.NO_CONTECT).send("delete");
+        return res.status(STATUS_CODES.NO_CONTECT).redirect("../page");
     }
     static async updateTask(req, res) {
         const userId = req.user_id;
 
         const affectedRows = await TasksService.updateTask({ userId, ...req.body }, parseInt(req.params.id));
 
-        res.status(STATUS_CODES.CREATED).send("sda");
+        res.status(STATUS_CODES.CREATED).redirect("page");
     }
 }
 

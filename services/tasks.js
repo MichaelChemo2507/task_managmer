@@ -110,8 +110,10 @@ class TasksService {
     }
     static async updateTask(values, id) {
         if (!id || typeof id !== typeof 1 || id <= 0)
-            throw new DetailedError("Invalid id", 'category', STATUS_CODES.BED_REQUEST)
+            throw new DetailedError("Invalid id", 'tasks', STATUS_CODES.BED_REQUEST)
 
+        console.log(values);
+        
         let validation = new TasksValidation(values);
         validation.req_validate();
 
