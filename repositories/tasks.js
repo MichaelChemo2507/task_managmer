@@ -24,16 +24,20 @@ class TasksRepository {
         let queryValues = [userId];
 
         if (sortParameters) {
-            if (sortParameters.category > 0) {
-
+            
+            if (Number(sortParameters.category) > 0) {
+                console.log(sortParameters.category);
+                
                 sql += ' AND `category_id` = ?';
                 queryValues.push(sortParameters.category);
-
-            } else if (sortParameters.category == 0) {
-                sql += ' AND `category_id` = null';
+                
+            } else if (Number(sortParameters.category) === -1) {
+                console.log(sortParameters.category);
+                sql += ' AND `category_id` IS NULL';
             }
-
-            if (sortParameters.isDone > 0 && sortParameters.isDone < 3) {
+            
+            if (Number(sortParameters.isDone) > 0 && Number(sortParameters.isDone) < 3) {
+                console.log(sortParameters.isDone);
 
                 sql += ' AND `is_done` = ?';
                 queryValues.push(sortParameters.isDone);
@@ -47,6 +51,9 @@ class TasksRepository {
 
             }
         }
+
+        console.log(queryValues);
+        console.log(sql);
 
         const [rows, fields] = await connection.pool.execute(sql, queryValues);
 

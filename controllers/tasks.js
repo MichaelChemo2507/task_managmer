@@ -8,16 +8,20 @@ class TasksController {
         const rowsPerPage = 10.0;
         const page = (req.query.page !== undefined) ? req.query.page : 0;
 
+        const { category, isDone } = req.query
+
         const categories = await CategoriesService.getAllByUserId(req.user_id);
 
-        const result = await TasksService.getAllByUserId(req.user_id, { page, rowsPerPage }, req.body);
+        const result = await TasksService.getAllByUserId(req.user_id, { page, rowsPerPage }, { category, isDone });
 
         let totalPages = await TasksService.getTotalPages(req.user_id);
 
         totalPages = Math.ceil(totalPages / rowsPerPage);
+        console.log(categories);
 
         res.status(STATUS_CODES.OK).render('tasksPage', {
             data: {
+                sortParameters: { category, isDone },
                 categories,
                 result,
                 page,
