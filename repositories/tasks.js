@@ -37,7 +37,7 @@ class TasksRepository {
 
         return rows;
     }
-    static async addCategory(values) {
+    static async addTask(values) {
         const sql = 'INSERT INTO `tasks`(`user_id`, `category_id`, `description`, `date`, `is_done`) VALUES (?,?,?,?,?)';
         
         const [rows, fields] = await connection.pool.execute(sql, values);

@@ -21,6 +21,12 @@ class TasksService {
         let validation = new TasksValidation(rows);
         validation.res_validate();
 
+        rows = rows.map(row => {
+            row.date = correctDateFormat(row.date);
+            return row;
+        })
+        
+
         return rows;
     }
     static async getAllByUserId(id, sortParameters, pageParameters) {
@@ -29,7 +35,7 @@ class TasksService {
         if (!id || id === null || id < 0)
             throw new DetailedError("Invalid id", 'tasks', STATUS_CODES.BED_REQUEST);
 
-        
+
         let rows;
 
         if (pageParameters)
@@ -43,13 +49,16 @@ class TasksService {
         return rows;
     }
     static async addTask(values) {
-        
+
         let validation = new TasksValidation(values);
         validation.req_validate();
 
-        const { userId, category, date, isDone } = values;
+        let { userId, description, category, date, isDone } = values;
 
-        let rows = await TasksService.addTask([Number(userId), Number(category), correctDateFormat(date), Number(isDone)]);
+        if (Number(category) === 0)
+            category = null;
+
+        let rows = await TasksRepository.addTask([Number(userId), category, String(description), correctDateFormat(date), Number(isDone)]);
 
         if (rows.insertId === 0)
             throw new DetailedError("No Task was added", 'task', STATUS_CODES.INTERNAL_SERVER);

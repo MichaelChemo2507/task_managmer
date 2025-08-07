@@ -6,6 +6,7 @@ router.use('/login', require('./login'));
 router.use('/registration', require('./registration')); 
 router.use('/users', require('./users')); 
 router.use('/categories', require('./categories')); 
+router.use('/tasks', require('./tasks')); 
 
 router.use(require('../middleware/errorHandller'))
 module.exports = router;

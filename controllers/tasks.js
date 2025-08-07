@@ -1,4 +1,4 @@
-const TasksServiceService = require('../services/tasks');
+const TasksService = require('../services/tasks');
 
 class TasksController {
     static async getCategoriesPage(req, res) {
@@ -16,22 +16,22 @@ class TasksController {
         })
     }
     static async getAll(req, res) {
-        const result = await TasksServiceService.getAll();
+        const result = await TasksService.getAll();
 
         return res.status(STATUS_CODES.OK).json({ success: true, result: result });
     }
     static async getAllByUserId(req, res) {
-        const result = await TasksServiceService.getAllByUserId(req.user_id);
+        const result = await TasksService.getAllByUserId(req.user_id);
 
         res.status(STATUS_CODES.OK).json({ success: true, result: result });
     }
-    static async addCategory(req, res) {
+    static async addTask(req, res) {
         const userId = req.user_id;
-        const { categoryName } = req.body;
 
-        const result = await CategoriesService.addCategory({ categoryName, userId });
+        // const result = await TasksService.addTask({ userId, ...req.body });
+        const result = await TasksService.addTask(req.body );
 
-        res.status(STATUS_CODES.OK).redirect("categories/page");
+        res.status(STATUS_CODES.OK).json({sa:"ss"});
     }
     static async deleteCategory(req, res) {
         const affectedRows = await CategoriesService.deleteCategory(parseInt(req.params.id));

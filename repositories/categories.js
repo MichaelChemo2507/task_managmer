@@ -16,7 +16,6 @@ class CategoriesRepository {
         return rows;
 
     } static async getAllByUserId(values) {
-        console.log(values);
         let sql = 'SELECT `id`,`category_name` FROM `categories` WHERE `user_id` = ?';
         
         if (values.length > 1)

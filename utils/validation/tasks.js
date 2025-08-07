@@ -12,7 +12,7 @@ module.exports = class TasksValidation extends Validation {
 
             const currentDate = new Date();
 
-            if (inputDate >= currentDate) return true;
+            if (dateObj >= currentDate) return true;
 
 
         }
@@ -27,9 +27,9 @@ module.exports = class TasksValidation extends Validation {
                
                 const result = await CategoriesRepository.getAllByUserId([userId]);
                 
-                result.filter(data => data.id === Number(category));
+
                 
-                if (result.length <= 0)
+                if (result.filter(data => data.id === Number(category)) <= 0)
                     throw new Error("No category exist");
 
             }
