@@ -16,9 +16,6 @@ class TasksController {
 
         totalPages = Math.ceil(totalPages / rowsPerPage);
 
-        console.log(result);
-        console.log(categories);
-        
         res.status(STATUS_CODES.OK).render('tasksPage', {
             data: {
                 categories,
