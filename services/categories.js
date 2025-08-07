@@ -56,12 +56,12 @@ class CategoriesService {
     }
     static async deleteCategory(id) {
 
-        if (!id || id < 0)
-            throw new DetailedError("Invalid id", 'users_service', STATUS_CODES.BED_REQUEST)
+        if (!id || id <= 0)
+            throw new DetailedError("Invalid id", 'categories', STATUS_CODES.BED_REQUEST)
 
         let rows = await CategoriesRepository.deleteCategory([id]);
 
-        if (!rows.affectedRows || rows.affectedRows < 0)
+        if (!rows.affectedRows || rows.affectedRows <= 0)
             throw new DetailedError("No category exist", 'categories', STATUS_CODES.BED_REQUEST)
 
         return rows.affectedRows;

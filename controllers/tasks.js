@@ -1,3 +1,4 @@
+
 const TasksService = require('../services/tasks');
 
 class TasksController {
@@ -17,8 +18,7 @@ class TasksController {
     }
     static async getAll(req, res) {
         const result = await TasksService.getAll();
-        console.log(result);
-        
+
         return res.status(STATUS_CODES.OK).json({ success: true, result: result });
     }
     static async getAllByUserId(req, res) {
@@ -34,10 +34,11 @@ class TasksController {
 
         res.status(STATUS_CODES.OK).json({ sa: "ss" });
     }
-    static async deleteCategory(req, res) {
-        const affectedRows = await CategoriesService.deleteCategory(parseInt(req.params.id));
+    static async deleteTask(req, res) {
+        const affectedRows = await TasksService.deleteTask(parseInt(req.params.id));
+console.log(affectedRows);
 
-        return res.status(STATUS_CODES.NO_CONTECT).redirect("http://localhost:7777/categories/page");
+        return res.status(STATUS_CODES.NO_CONTECT).send("delete");
     }
     static async updateTask(req, res) {
         const userId = req.user_id;

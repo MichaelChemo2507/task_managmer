@@ -67,15 +67,15 @@ class TasksService {
 
         return rows.insertId;
     }
-    static async deleteCategory(id) {
+    static async deleteTask(id) {
 
-        if (!id || id < 0)
-            throw new DetailedError("Invalid id", 'users_service', STATUS_CODES.BED_REQUEST)
+        if (!id || id <= 0)
+            throw new DetailedError("Invalid id", 'task', STATUS_CODES.BED_REQUEST)
 
-        let rows = await CategoriesRepository.deleteCategory([id]);
+        let rows = await TasksRepository.deleteTask([id]);
 
-        if (!rows.affectedRows || rows.affectedRows < 0)
-            throw new DetailedError("No category exist", 'categories', STATUS_CODES.BED_REQUEST)
+        if (!rows.affectedRows || rows.affectedRows <= 0)
+            throw new DetailedError("No task exist", 'task', STATUS_CODES.BED_REQUEST)
 
         return rows.affectedRows;
     }
@@ -92,7 +92,7 @@ class TasksService {
             category = null;
 
         let rows = await TasksRepository.updateTask([category, String(description), correctDateFormat(date), Number(isDone), id]);
-        
+
         if (rows.affectedRows === 0)
             throw new DetailedError("No Task was updated", 'task', STATUS_CODES.INTERNAL_SERVER);
 

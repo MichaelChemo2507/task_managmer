@@ -44,9 +44,11 @@ class TasksRepository {
         
         return rows;
     }
-    static async deleteCategory(values) {
-        const sql = 'DELETE FROM `categories` WHERE `id` = ?';
+    static async deleteTask(values) {
+        const sql = 'DELETE FROM `tasks` WHERE `id` = ?';
+       
         const [rows, fields] = await connection.pool.execute(sql, values);
+       
         return rows;
     }
     static async updateTask(values) {
