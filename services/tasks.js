@@ -1,6 +1,7 @@
 const TasksRepository = require('../repositories/tasks');
 const DetailedError = require('../utils/errors/detailedError');
-const TasksValidation = require('../utils/validation/tasks')
+const TasksValidation = require('../utils/validation/tasks');
+const correctDateFormat = require('../utils/correctDateFormat');
 
 class TasksService {
 
@@ -46,10 +47,12 @@ class TasksService {
         let validation = new TasksValidation(values);
         validation.req_validate();
 
-        let rows = await CategoriesRepository.addCategory([categoryName, userId]);
+        const { userId, category, date, isDone } = values;
+
+        let rows = await TasksService.addTask([Number(userId), Number(category), correctDateFormat(date), Number(isDone)]);
 
         if (rows.insertId === 0)
-            throw new DetailedError("No category was added", 'categories', STATUS_CODES.INTERNAL_SERVER);
+            throw new DetailedError("No Task was added", 'task', STATUS_CODES.INTERNAL_SERVER);
 
         return rows.insertId;
     }

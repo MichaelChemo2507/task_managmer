@@ -34,7 +34,11 @@ const errorHandler = (error, req, res, next) => {
             },
         })
     } else if (error.code === 400) {
-        if (error.title === 'users') {
+        if (error.title === 'tasks') {
+            res.status(400).render('tasksPage', {
+            })
+        }
+        else if (error.title === 'users') {
             res.status(400).render('registrationPage', {
                 data: {
                     errorMessage: error.message,
