@@ -119,6 +119,24 @@ li a:hover:not(.active) {
     color: white;
     font-style: italic;
   }
+  #pageNav {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#pageNav form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: #ffffffdd; /* לבן חצי שקוף */
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  border: 1px solid #ccc;
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+}
 </style>
 
 </head>
@@ -154,20 +172,18 @@ li a:hover:not(.active) {
                 </td>
             </tr>
         <%}%>
-        <tr>
-            <td>
-                <form action="http://localhost:7777/categories/page">
-                    <% if(data.page > 0) { %>
-                        <button name="page" value="<%= Number(data.page)-1 %>">BACK</button>
-                    <% } %>
-                        PAGE <%= Number(data.page)+1 %> IN <%= data.totalPages %>
-                    <% if(data.page < data.totalPages - 1) { %>
-                        <button name="page" value="<%= Number(data.page)+1 %>">NEXT</button>
-                    <% } %>
-                </form>
-            </td>
-        </tr>
-    </table>
+        </table>
+        <div id="pageNav">
+        <form action="http://localhost:7777/categories/page">
+            <% if(data.page > 0) { %>
+                <button name="page" value="<%= Number(data.page)-1 %>">BACK</button>
+            <% } %>
+                PAGE <%= Number(data.page)+1 %> IN <%= data.totalPages %>
+            <% if(data.page < data.totalPages - 1) { %>
+                <button name="page" value="<%= Number(data.page)+1 %>">NEXT</button>
+             <% } %>
+        </form>
+        </div>
     <%} else{%>
         <h4>No Categories Yet</h4>
     <%}%>
