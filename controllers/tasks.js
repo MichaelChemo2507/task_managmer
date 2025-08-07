@@ -17,7 +17,8 @@ class TasksController {
     }
     static async getAll(req, res) {
         const result = await TasksService.getAll();
-
+        console.log(result);
+        
         return res.status(STATUS_CODES.OK).json({ success: true, result: result });
     }
     static async getAllByUserId(req, res) {
@@ -29,19 +30,22 @@ class TasksController {
         const userId = req.user_id;
 
         // const result = await TasksService.addTask({ userId, ...req.body });
-        const result = await TasksService.addTask(req.body );
+        const result = await TasksService.addTask(req.body);
 
-        res.status(STATUS_CODES.OK).json({sa:"ss"});
+        res.status(STATUS_CODES.OK).json({ sa: "ss" });
     }
     static async deleteCategory(req, res) {
         const affectedRows = await CategoriesService.deleteCategory(parseInt(req.params.id));
 
         return res.status(STATUS_CODES.NO_CONTECT).redirect("http://localhost:7777/categories/page");
     }
-    static async updateCategory(req, res) {
-        const affectedRows = await CategoriesService.updateCategory(req.body, parseInt(req.params.id));
+    static async updateTask(req, res) {
+        const userId = req.user_id;
 
-        res.status(STATUS_CODES.CREATED).redirect("http://localhost:7777/categories/page");
+        // const affectedRows = await TasksService.updateTask({ userId, ...req.body }, parseInt(req.params.id));
+        const affectedRows = await TasksService.updateTask(req.body, parseInt(req.params.id));
+
+        res.status(STATUS_CODES.CREATED).send("sda");
     }
 }
 

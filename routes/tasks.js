@@ -10,6 +10,6 @@ router.get('/all', tryCatch(TasksController.getAll));
 router.get('/', tryCatch(TasksController.getAllByUserId));
 // router.get('/delete/:id', tryCatch(CategoriesController.deleteCategory));
 router.post('/', tryCatch(TasksController.addTask));
-// router.post('/:id', tryCatch(CategoriesController.updateCategory));
+router.post('/:id', tryCatch(TasksController.updateTask));
 
 module.exports = router;

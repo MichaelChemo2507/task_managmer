@@ -23,9 +23,11 @@ class TasksService {
 
         rows = rows.map(row => {
             row.date = correctDateFormat(row.date);
+            if (row.description === null) row.description = "";
+            if (row.category_id === null) row.category_id = 0;
             return row;
         })
-        
+
 
         return rows;
     }
@@ -77,19 +79,24 @@ class TasksService {
 
         return rows.affectedRows;
     }
-    static async updateCategory({ categoryName }, id) {
+    static async updateTask(values, id) {
         if (!id || typeof id !== typeof 1 || id <= 0)
             throw new DetailedError("Invalid id", 'category', STATUS_CODES.BED_REQUEST)
 
-        if (!categoryName || categoryName === null)
-            throw new DetailedError("Invalid category name", 'category', STATUS_CODES.BED_REQUEST)
+        let validation = new TasksValidation(values);
+        validation.req_validate();
 
-        let rows = await CategoriesRepository.updateCategory([String(categoryName).trim(), id]);
+        let { description, category, date, isDone } = values;
 
-        if (!rows.affectedRows || rows.affectedRows < 0)
-            throw new DetailedError("No category exist", 'category', STATUS_CODES.BED_REQUEST)
+        if (Number(category) === 0)
+            category = null;
 
-        return rows.affectedRows;
+        let rows = await TasksRepository.updateTask([category, String(description), correctDateFormat(date), Number(isDone), id]);
+        
+        if (rows.affectedRows === 0)
+            throw new DetailedError("No Task was updated", 'task', STATUS_CODES.INTERNAL_SERVER);
+
+        return rows.insertId;
     }
 }
 
