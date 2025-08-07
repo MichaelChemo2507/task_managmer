@@ -51,9 +51,6 @@ class TasksRepository {
             queryValues = queryValues.concat(pageParameters);
 
         }
-        console.log(queryValues);
-        console.log(sql);
-
         const [rows, fields] = await connection.pool.execute(sql, queryValues);
 
         return rows;

@@ -11,13 +11,46 @@
     margin: 40px;
     color: #333;
   }
+  ul {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
 
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
   h2 {
     color: white;
     margin-bottom: 10px;
   }
 
   form {
+    margin-top: 60px;
     margin-bottom: 20px;
   }
 
@@ -90,6 +123,7 @@
 
 </head>
 <body>
+   <%- include('navigationBar.ejs') %> 
     <form action="http://localhost:7777/categories" method="post">
         <h2>Add Category</h2>
         <input type="text" name="categoryName" id="categoryName" placeholder="Category Name..." required>
