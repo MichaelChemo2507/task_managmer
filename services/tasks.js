@@ -7,12 +7,12 @@ class TasksService {
 
     static async getTotalPages(id) {
         if (!id || id === null || id <= 0)
-            throw new DetailedError('Invalid id', 'categories', STATUS_CODES.INTERNAL_SERVER);
+            throw new DetailedError('Invalid id', 'tasks', STATUS_CODES.INTERNAL_SERVER);
 
-        let rows = await CategoriesRepository.getTotalPages([id]);
+        let rows = await TasksRepository.getTotalPages([id]);
 
         if (rows.length === 0 || rows.cnt <= 0)
-            throw new DetailedError('No result from db', 'categories', STATUS_CODES.INTERNAL_SERVER);
+            throw new DetailedError('No result from db', 'tasks', STATUS_CODES.INTERNAL_SERVER);
         return rows[0].cnt;
     }
     static async getAll() {
@@ -31,19 +31,41 @@ class TasksService {
 
         return rows;
     }
-    static async getAllByUserId(id, sortParameters, pageParameters) {
-        const { page, rowsPerPage } = pageParameters;
+    static async getAllByUserId(id, pageParameters, sortParameters) {
 
-        if (!id || id === null || id < 0)
+        if (!id || id === null || id <= 0)
             throw new DetailedError("Invalid id", 'tasks', STATUS_CODES.BED_REQUEST);
 
 
         let rows;
 
-        if (pageParameters)
-            rows = await TasksRepository.getAllByUserId({ userId: Number(id), sortParameters: sortParameters, pageParameters: [page * rowsPerPage, rowsPerPage] });
-        else
+        if (pageParameters) {
+            const { page, rowsPerPage } = pageParameters;
+
+            if (sortParameters) {
+
+                let validation = new TasksValidation(sortParameters);
+                validation.sort_parameters_validation({ id, ...sortParameters });
+
+                rows = await TasksRepository.getAllByUserId({ userId: Number(id), pageParameters: [page * rowsPerPage, rowsPerPage], sortParameters: sortParameters });
+            
+            } else {
+            
+                rows = await TasksRepository.getAllByUserId({ userId: Number(id), pageParameters: [page * rowsPerPage, rowsPerPage] });
+            
+            }
+        } else if (sortParameters) {
+
+            let validation = new TasksValidation(sortParameters);
+            validation.sort_parameters_validation({ id, ...sortParameters });
+
             rows = await TasksRepository.getAllByUserId({ userId: Number(id), sortParameters: sortParameters });
+
+        } else {
+            
+            rows = await TasksRepository.getAllByUserId({ userId: Number(id) });
+        
+        }
 
         let validation = new TasksValidation(rows);
         validation.res_validate();
@@ -51,16 +73,18 @@ class TasksService {
         return rows;
     }
     static async addTask(values) {
-
+        
+        console.log(values);
+        
         let validation = new TasksValidation(values);
         validation.req_validate();
 
-        let { userId, description, category, date, isDone } = values;
+        let { userId, description, category, date} = values;
 
         if (Number(category) === 0)
             category = null;
 
-        let rows = await TasksRepository.addTask([Number(userId), category, String(description), correctDateFormat(date), Number(isDone)]);
+        let rows = await TasksRepository.addTask([Number(userId), category, String(description), correctDateFormat(date), 2]);
 
         if (rows.insertId === 0)
             throw new DetailedError("No Task was added", 'task', STATUS_CODES.INTERNAL_SERVER);

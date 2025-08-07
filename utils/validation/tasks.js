@@ -19,16 +19,37 @@ module.exports = class TasksValidation extends Validation {
         return false;
     }
 
+    async sort_parameters_validation() {
+        try {
+
+            let { category, isDone, userId } = this.values;
+
+            if (category)
+                if (Number(category) !== 0) {
+
+                    const result = await CategoriesRepository.getAllByUserId([userId]);
+
+                    if (result.filter(data => data.id === Number(category)) <= 0)
+                        throw new Error("No category exist");
+
+                }
+
+            if (isDone)
+                if (Number(isDone) > 3 || Number(isDone) < 1)
+                    throw new Error("Invalid isDone");
+
+        } catch (error) {
+        }
+    }
+
     async req_validate() {
         try {
             const { userId, category, date, isDone } = this.values;
-            
-            if (Number(category) !== 0) {
-               
-                const result = await CategoriesRepository.getAllByUserId([userId]);
-                
 
-                
+            if (Number(category) > 0) {
+
+                const result = await CategoriesRepository.getAllByUserId([userId]);
+
                 if (result.filter(data => data.id === Number(category)) <= 0)
                     throw new Error("No category exist");
 
@@ -38,8 +59,9 @@ module.exports = class TasksValidation extends Validation {
             if (!this.date_validation(date))
                 throw new Error("Invalid date");
 
-            if (Number(isDone) > 2 || Number(isDone) < 1)
-                throw new Error("Invalid isDone");
+            if (isDone)
+                if (Number(isDone) != 1)
+                    throw new Error("Invalid isDone");
 
         } catch (error) {
             throw new DetailedError(error.message, 'tasks', STATUS_CODES.BED_REQUEST);

@@ -24,21 +24,25 @@ class CategoriesService {
         return rows;
     }
     static async getAllByUserId(id, pageParameters) {
-        const { page, rowsPerPage } = pageParameters;
 
         if (!id || id === null || id < 0)
             throw new DetailedError("Invalid id", 'categories', STATUS_CODES.BED_REQUEST);
 
         let rows;
 
-        if (pageParameters)
-            rows = await CategoriesRepository.getAllByUserId([id, page * rowsPerPage, rowsPerPage]);
-        else 
-            rows = await CategoriesRepository.getAllByUserId([id]);
+        if (pageParameters) {
+            
+            const { page, rowsPerPage } = pageParameters;
         
+            rows = await CategoriesRepository.getAllByUserId([id, page * rowsPerPage, rowsPerPage]);
+        
+        } else
+        
+            rows = await CategoriesRepository.getAllByUserId([id]);
+
         let validation = new CategoriesValidation(rows);
         validation.res_validate();
-        
+
         return rows;
     }
     static async addCategory(values) {

@@ -89,7 +89,7 @@
         </style>
     </head>
     <body>
-        <form action="http://localhost:7777/task" method="post">
+        <form action="http://localhost:7777/tasks" method="post">
             <h2>Add task</h2>
             <select name="category" id="category" >
                 <option value="-1" selected>No Category</option>
@@ -98,8 +98,7 @@
                 <%}%>
             </select>
             <textarea name="description" id="description" placeholder="Description..." style="resize: none;" cols="30" rows="3"></textarea>
-            <label for="date">Date:</label><input type="date" name="date" id="date" value="<%= data.date %>">
-            <label for="date">Is Done:</label><input type="checkbox" name="isDone" id="isDone" value="false">
+            <label for="date">Date:</label><input type="date" required name="date" id="date" value="<%= data.date %>">
 
             <input type="submit" value="Add Task" id="addTaskBtn">
         </form>

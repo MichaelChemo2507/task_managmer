@@ -1,15 +1,24 @@
 
 const TasksService = require('../services/tasks');
+const CategoriesService = require('../services/categories')
 
 class TasksController {
-    static async getCategoriesPage(req, res) {
+    static async getTasksPage(req, res) {
+
         const rowsPerPage = 10.0;
         const page = (req.query.page !== undefined) ? req.query.page : 0;
-        const result = await CategoriesService.getAllByUserId(req.user_id, { page, rowsPerPage });
-        let totalPages = await CategoriesService.getTotalPages(req.user_id);
+
+        const categories = await CategoriesService.getAllByUserId(req.user_id);
+
+        const result = await TasksService.getAllByUserId(req.user_id, { page, rowsPerPage }, req.body);
+
+        let totalPages = await TasksService.getTotalPages(req.user_id);
+
         totalPages = Math.ceil(totalPages / rowsPerPage);
-        res.status(STATUS_CODES.OK).render('categoriesPage', {
+
+        res.status(STATUS_CODES.OK).render('tasksPage', {
             data: {
+                categories,
                 result,
                 page,
                 totalPages
@@ -29,22 +38,20 @@ class TasksController {
     static async addTask(req, res) {
         const userId = req.user_id;
 
-        // const result = await TasksService.addTask({ userId, ...req.body });
-        const result = await TasksService.addTask(req.body);
+        const result = await TasksService.addTask({ userId, ...req.body });
 
-        res.status(STATUS_CODES.OK).json({ sa: "ss" });
+        res.status(STATUS_CODES.OK).redirect("tasks/page");
     }
     static async deleteTask(req, res) {
         const affectedRows = await TasksService.deleteTask(parseInt(req.params.id));
-console.log(affectedRows);
+        console.log(affectedRows);
 
         return res.status(STATUS_CODES.NO_CONTECT).send("delete");
     }
     static async updateTask(req, res) {
         const userId = req.user_id;
 
-        // const affectedRows = await TasksService.updateTask({ userId, ...req.body }, parseInt(req.params.id));
-        const affectedRows = await TasksService.updateTask(req.body, parseInt(req.params.id));
+        const affectedRows = await TasksService.updateTask({ userId, ...req.body }, parseInt(req.params.id));
 
         res.status(STATUS_CODES.CREATED).send("sda");
     }
