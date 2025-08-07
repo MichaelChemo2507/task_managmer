@@ -17,7 +17,6 @@ class TasksController {
         let totalPages = await TasksService.getTotalPages(req.user_id);
 
         totalPages = Math.ceil(totalPages / rowsPerPage);
-        console.log(categories);
 
         res.status(STATUS_CODES.OK).render('tasksPage', {
             data: {

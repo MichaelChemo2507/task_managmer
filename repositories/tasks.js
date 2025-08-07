@@ -17,41 +17,40 @@ class TasksRepository {
 
     }
     static async getAllByUserId(values) {
-        const { userId, pageProperties, sortParameters } = values;
+        const { userId, pageParameters, sortParameters } = values;
+        
 
         let sql = 'SELECT `id`,`category_id`,`description`,`date`,`is_done` FROM `tasks` WHERE `user_id` = ?';
 
         let queryValues = [userId];
 
         if (sortParameters) {
-            
+
             if (Number(sortParameters.category) > 0) {
-                console.log(sortParameters.category);
-                
+
                 sql += ' AND `category_id` = ?';
                 queryValues.push(sortParameters.category);
-                
+
             } else if (Number(sortParameters.category) === -1) {
-                console.log(sortParameters.category);
                 sql += ' AND `category_id` IS NULL';
             }
-            
+
             if (Number(sortParameters.isDone) > 0 && Number(sortParameters.isDone) < 3) {
-                console.log(sortParameters.isDone);
+
 
                 sql += ' AND `is_done` = ?';
                 queryValues.push(sortParameters.isDone);
 
             }
 
-            if (pageProperties) {
 
-                sql += ' LIMIT ?, ?';
-                queryValues.push(...pageProperties);
-
-            }
         }
+        if (pageParameters) {
 
+            sql += ' LIMIT ?, ?';
+            queryValues = queryValues.concat(pageParameters);
+
+        }
         console.log(queryValues);
         console.log(sql);
 

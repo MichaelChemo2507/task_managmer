@@ -5,92 +5,153 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tesks</title>
         <style>
-          body {
-            font-family: Arial, sans-serif;
-            background-color: cornflowerblue;
-            margin: 40px;
-            color: #333;
-          }
+         body {
+  font-family: Arial, sans-serif;
+  background-color: cornflowerblue;
+  margin: 40px;
+  color: #333;
+}
 
-          h2 {
-            color: white;
-            margin-bottom: 10px;
-          }
+h2 {
+  color: white;
+  margin-bottom: 10px;
+}
 
-          form {
-            margin-bottom: 20px;
-          }
 
-          input[type="text"] {
-            padding: 8px;
-            width: 250px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            transition: border-color 0.2s;
-          }
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.container form {
+    margin-bottom: 20px;
+  background-color: #ffffffcc;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin-right: 20px;
+  flex: 1;
+}
+.container form h2{
+color: black;
+}
 
-          input[type="text"]:focus {
-            border-color: #007bff;
-            outline: none;
-          }
+form label {
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: #333;
+}
 
-          input[type="submit"],
-          button {
-            padding: 8px 16px;
-            background-color: #007bff;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-left: 8px;
-          }
+form input[type="text"],
+form input[type="date"],
+form select,
+form textarea {
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  padding: 6px 10px;
+  margin-bottom: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
 
-          input[type="submit"]:hover,
-          button:hover {
-            background-color: #0056b3;
-          }
+form textarea {
+  resize: none;
+}
 
-          table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-          }
+form input[type="text"]:focus,
+form input[type="date"]:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 2px rgba(0, 123, 255, 0.4);
+  outline: none;
+}
 
-          th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-          }
+input[type="submit"],
+button {
+  padding: 6px 14px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.3s;
+  margin-left: 6px;
+}
 
-          th {
-            background-color: #f0f0f0;
-            font-weight: bold;
-          }
+input[type="submit"]:hover,
+button:hover {
+  background-color: #0056b3;
+}
 
-          td form {
-            display: inline;
-          }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
 
-          .pagination {
-            text-align: center;
-            margin-top: 20px;
-          }
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
 
-          .pagination button {
-            margin: 0 5px;
-          }
+th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
 
-          h4 {
-            color: white;
-            font-style: italic;
-          }
+td form {
+  display: inline;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+}
+
+h4 {
+  color: white;
+  font-style: italic;
+}
+#pageNav {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#pageNav form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: #ffffffdd; /* לבן חצי שקוף */
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  border: 1px solid #ccc;
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+}
+
+
         </style>
     </head>
     <body>
+      <div class="container">
         <form action="http://localhost:7777/tasks" method="post">
-            <h2>Add task</h2>
+            <h2>Add Task</h2>
             <select name="category" id="category" >
                 <option value="0" selected>No Category</option>
                 <%for( let i = 0;i < data.categories.length; i++){%>
@@ -103,6 +164,7 @@
             <input type="submit" value="Add Task" id="addTaskBtn">
         </form>
         <form action="http://localhost:7777/tasks/page" method="get">
+          <h2>Sort By</h2>
             <label for="category">category:</label>
             <select name="category" id="category" >
 
@@ -135,21 +197,22 @@
             <select name="isDone" id="isDone">
                 <%if(data.sortParameters.isDone === '1'){%>
                     <option value="1" selected>Done</option>
-                    <option value="2">To DO</option>
+                    <option value="2">To Do</option>
                     <option value="3">All</option>
                 <%} else if(data.sortParameters.isDone === '2'){%>  
                     <option value="1">Done</option>
-                    <option value="2" selected>To DO</option>
+                    <option value="2" selected>To Do</option>
                     <option value="3">All</option>
                 <%} else {%>  
                     <option value="1">Done</option>
-                    <option value="2">To DO</option>
+                    <option value="2">To Do</option>
                     <option value="3" selected>All</option>
                 <%}%>
             </select>
 
             <input type="submit" value="Sort">
         </form>
+      </div>
         <h2>Tasks List</h2>
         <%if(data.result.length > 0){%>
             <table>
@@ -190,7 +253,7 @@
                           <%}%>
 
                           <td>
-                            <input type="submit" value="UPDATE">
+                            <button>UPDATE</button>
                           </td>
                         </form>
                         <td>
@@ -200,20 +263,18 @@
                         </td>
                     </tr>
                 <%}%>
-                <tr>
-                    <td>
-                        <form action="http://localhost:7777/tasks/page">
-                            <% if(data.page > 0) { %>
-                                <button name="page" value="<%= Number(data.page)-1 %>">BACK</button>
-                            <% } %>
-                                PAGE <%= Number(data.page)+1 %> IN <%= data.totalPages %>
-                            <% if(data.page < data.totalPages - 1) { %>
-                                <button name="page" value="<%= Number(data.page)+1 %>">NEXT</button>
-                            <% } %>
-                        </form>
-                    </td>
-                </tr>
-            </table>
+                </table>
+                <div id="pageNav">
+                  <form action="http://localhost:7777/tasks/page">
+                      <% if(data.page > 0) { %>
+                          <button name="page" value="<%= Number(data.page)-1 %>">BACK</button>
+                      <% } %>
+                          PAGE <%= Number(data.page)+1 %> IN <%= data.totalPages %>
+                      <% if(data.page < data.totalPages - 1) { %>
+                          <button name="page" value="<%= Number(data.page)+1 %>">NEXT</button>
+                      <% } %>
+                  </form>
+                </div>
         <%} else{%>
             <h4>No Categories Yet</h4>
         <%}%>
