@@ -5,14 +5,25 @@ module.exports = class TasksValidation extends Validation {
     constructor(values) {
         super(values);
     }
+    date_validation(dateStr) {
+        let dateObj = new Date(dateStr);
+        if (!isNaN(dateObj)) {
+           
+        }
+        return false;
+    }
 
     async req_validate() {
         try {
             const { userId, category, date, isDone } = this.values;
             const result = await CategoriesRepository.getAllByUserId([userId]);
-            result.filter((data) => { data.id === category })
+
+            result.filter(data => data.id === Number(category));
+
             if (result.length <= 0)
-                throw new Error()
+                throw new Error("No category exist");
+
+
         } catch (error) {
         }
     }
