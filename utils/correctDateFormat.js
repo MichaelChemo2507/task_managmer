@@ -9,5 +9,5 @@ module.exports = (dateInput) => {
 
     const year = dateObj.getFullYear();
 
-    return `${year}/${month}/${day}`;
+    return `${year}-${month}-${day}`;
 }

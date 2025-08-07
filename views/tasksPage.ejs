@@ -92,13 +92,13 @@
         <form action="http://localhost:7777/tasks" method="post">
             <h2>Add task</h2>
             <select name="category" id="category" >
-                <option value="-1" selected>No Category</option>
+                <option value="0" selected>No Category</option>
                 <%for( let i = 0;i < data.categories.length; i++){%>
                     <option value="<%= Object.values(data.categories[i])[0] %>"><%= Object.values(data.categories[i])[1] %></option>
                 <%}%>
             </select>
             <textarea name="description" id="description" placeholder="Description..." style="resize: none;" cols="30" rows="3"></textarea>
-            <label for="date">Date:</label><input type="date" required name="date" id="date" value="<%= data.date %>">
+            <label for="date">Date:</label><input type="date" required name="date" id="date">
 
             <input type="submit" value="Add Task" id="addTaskBtn">
         </form>
@@ -132,12 +132,37 @@
                 <% for(let i = 0; i < data.result.length; i++){%>
                     <tr>
                         <form action="http://localhost:7777/categories/<%= Object.values(data.result[i])[0] %>" method="post">
-                            <%for(let k = 1; k < Object.values(data.result[i]).length; k++){%>
-                                <td><input type="text" name="categoryName" value="<%=Object.values(data.result[i])[k]%>" ></td>
+                          <td><select name="category" id="category" >
+                           
+                            <%if(data.result[i].category_id === 0){%>
+                              <option value="0" selected>No Category</option>
+                            <%} else {%>
+                              <option value="0">No Category</option>
                             <%}%>
-                            <td>
-                                <input type="submit" value="UPDATE">
-                            </td>
+                           
+                            <%for( let k = 0;k < data.categories.length; k++){%>
+
+                              <%if(data.result[i].category_id === data.categories[k].id){%>
+                                <option value="<%= data.categories[k].id %>" selected><%= data.categories[k].category_name %></option>
+                                <%} else {%>
+                                  <option value="<%= data.categories[k].id %>"><%= data.categories[k].category_name %></option>
+                              <%}%>
+
+                            <%}%>
+                          </select></td>
+                          
+                          <td><textarea name="description" id="description" placeholder="Description..." style="resize: none;" cols="30" rows="3"><%=data.result[i].description%></textarea></td> 
+                          <td><input type="date" required name="date" id="date" value="<%= data.result[i].date %>"></td>
+                          
+                          <%if(data.result[i].is_done === 1){%>
+                            <td><input type="checkbox" name="isDone" value="1" checked></td>
+                          <%} else {%>
+                            <td><input type="checkbox" name="isDone" value="1"></td>
+                          <%}%>
+
+                          <td>
+                            <input type="submit" value="UPDATE">
+                          </td>
                         </form>
                         <td>
                         <form action="http://localhost:7777/categories/delete/<%= Object.values(data.result[i])[0] %>" >

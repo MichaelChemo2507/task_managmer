@@ -48,11 +48,11 @@ class TasksService {
                 validation.sort_parameters_validation({ id, ...sortParameters });
 
                 rows = await TasksRepository.getAllByUserId({ userId: Number(id), pageParameters: [page * rowsPerPage, rowsPerPage], sortParameters: sortParameters });
-            
+
             } else {
-            
+
                 rows = await TasksRepository.getAllByUserId({ userId: Number(id), pageParameters: [page * rowsPerPage, rowsPerPage] });
-            
+
             }
         } else if (sortParameters) {
 
@@ -62,24 +62,29 @@ class TasksService {
             rows = await TasksRepository.getAllByUserId({ userId: Number(id), sortParameters: sortParameters });
 
         } else {
-            
+
             rows = await TasksRepository.getAllByUserId({ userId: Number(id) });
-        
+
         }
 
         let validation = new TasksValidation(rows);
         validation.res_validate();
 
+        rows = rows.map(row => {
+            row.date = correctDateFormat(row.date);
+            if (row.description === null) row.description = "";
+            if (row.category_id === null) row.category_id = 0;
+            return row;
+        })
+
         return rows;
     }
     static async addTask(values) {
-        
-        console.log(values);
-        
+
         let validation = new TasksValidation(values);
         validation.req_validate();
 
-        let { userId, description, category, date} = values;
+        let { userId, description, category, date } = values;
 
         if (Number(category) === 0)
             category = null;

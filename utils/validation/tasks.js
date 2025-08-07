@@ -12,6 +12,10 @@ module.exports = class TasksValidation extends Validation {
 
             const currentDate = new Date();
 
+            console.log(currentDate);
+            console.log(dateObj);
+            console.log(dateObj >= currentDate);
+            
             if (dateObj >= currentDate) return true;
 
 
